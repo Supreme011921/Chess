@@ -1,0 +1,68 @@
+# Chess Game
+
+# Initialize the chessboard
+board = [
+    ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
+    ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+    ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+    ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
+]
+
+# Function to print the chessboard
+def print_board(board):
+    for row in board:
+        print(' '.join(row))
+
+# Function to check if a move is valid
+def is_valid_move(board, start_row, start_col, end_row, end_col):
+    piece = board[start_row][start_col]
+    if piece == ' ':
+        return False
+
+    if start_row == end_row and start_col == end_col:
+        return False
+
+    if piece.islower() and end_row <= start_row:
+        return False
+
+    if piece.isupper() and end_row >= start_row:
+        return False
+
+    return True
+
+# Function to move a piece on the board
+def move_piece(board, start_row, start_col, end_row, end_col):
+    piece = board[start_row][start_col]
+    board[start_row][start_col] = ' '
+    board[end_row][end_col] = piece
+
+# Main game loop
+def play_chess():
+    player = 1
+    while True:
+        print_board(board)
+        if player == 1:
+            print("Player 1's turn (uppercase pieces)")
+        else:
+            print("Player 2's turn (lowercase pieces)")
+
+        start_row = int(input("Enter the starting row: "))
+        start_col = int(input("Enter the starting column: "))
+        end_row = int(input("Enter the ending row: "))
+        end_col = int(input("Enter the ending column: "))
+
+        if is_valid_move(board, start_row, start_col, end_row, end_col):
+            move_piece(board, start_row, start_col, end_row, end_col)
+            if player == 1:
+                player = 2
+            else:
+                player = 1
+        else:
+            print("Invalid move. Try again.")
+
+# Start the game
+play_chess()
